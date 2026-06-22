@@ -250,11 +250,11 @@
       }
 
       .detail-nav-arrow {
-        position: absolute;
+        position: fixed;
         top: 50%;
-        z-index: 3;
-        width: 52px;
-        height: 52px;
+        z-index: 30;
+        width: 56px;
+        height: 56px;
         display: inline-grid;
         place-items: center;
         border: 1px solid rgba(207, 215, 223, 0.9);
@@ -276,11 +276,11 @@
       }
 
       .detail-nav-prev {
-        left: 16px;
+        left: max(18px, calc((100vw - 1440px) / 2 + 18px));
       }
 
       .detail-nav-next {
-        right: 16px;
+        right: max(18px, calc((100vw - 1440px) / 2 + 18px));
       }
 
       .detail-nav-mobile {
@@ -299,6 +299,10 @@
       }
 
       .image-lightbox[hidden] {
+        display: none;
+      }
+
+      body:has(.image-lightbox:not([hidden])) .detail-nav-arrow {
         display: none;
       }
 
