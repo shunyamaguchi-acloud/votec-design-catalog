@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
-    <title>制作実績詳細 - VOTEC DESIGN CATALOG</title>
+    <title>デザイナー実績詳細 - VOTEC DESIGN CATALOG</title>
     <style>
       :root {
         color-scheme: light;
@@ -466,8 +466,9 @@
           <img class="brand-logo" src="assets/logo.png" alt="VOTEC">
         </a>
         <nav class="site-nav" aria-label="サイトメニュー">
-          <a href="index.html">制作実績</a>
+          <a href="index.html">デザイナー実績</a>
           <a href="index.html#designers">在籍デザイナー</a>
+          <a href="index.html#catalog">制作カタログ</a>
           <a href="index.html#templates">テンプレート</a>
           <a class="nav-cta" href="form.html">依頼フォームはこちら</a>
         </nav>
@@ -478,9 +479,9 @@
       <section class="detail-hero">
         <div>
           <p class="eyebrow">WORK DETAIL</p>
-          <h1>制作実績詳細</h1>
+          <h1>デザイナー実績詳細</h1>
         </div>
-        <a class="ghost-link" href="index.html">制作実績一覧へ</a>
+        <a class="ghost-link" href="index.html">デザイナー実績一覧へ</a>
       </section>
 
       <div class="work-detail-layout">
@@ -496,7 +497,7 @@
             <div>
               <h2>似ているバナー</h2>
             </div>
-          <a class="ghost-link" href="index.html">制作実績一覧へ</a>
+          <a class="ghost-link" href="index.html">デザイナー実績一覧へ</a>
         </div>
         <div class="similar-grid" id="similarGrid"></div>
       </section>
@@ -857,7 +858,7 @@
       const current = works.find((work) => work.id === params.get("id")) || works[0];
 
       function render() {
-        document.title = `${current.designer}\u306e\u5236\u4f5c\u5b9f\u7e3e - VOTEC DESIGN CATALOG`;
+        document.title = `${current.designer}\u306e\u30c7\u30b6\u30a4\u30ca\u30fc\u5b9f\u7e3e - VOTEC DESIGN CATALOG`;
         const banner = document.querySelector("#mainBanner");
         banner.src = current.image;
         banner.alt = `${current.designer}\u306e\u5236\u4f5c\u5b9f\u7e3e`;
@@ -873,12 +874,12 @@
             </div>
           </div>
           <div class="meta-block">
-            <p class="meta-block-title">\u3053\u306e\u5b9f\u7e3e\u306e\u30bf\u30b0</p>
+              <p class="meta-block-title">\u3053\u306e\u30c7\u30b6\u30a4\u30ca\u30fc\u5b9f\u7e3e\u306e\u30bf\u30b0</p>
             <div class="tags">${current.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
           </div>
           <div class="designer-action">
             <a class="ghost-link" href="${designerRequestUrl}">\u3053\u306e\u5236\u4f5c\u8005\u3092\u7b2c\u4e00\u5e0c\u671b\u306b\u3059\u308b</a>
-            <a class="ghost-link" href="${designerWorksUrl}">\u3053\u306e\u30c7\u30b6\u30a4\u30ca\u30fc\u306e\u5236\u4f5c\u5b9f\u7e3e\u3092\u898b\u308b</a>
+            <a class="ghost-link" href="${designerWorksUrl}">\u3053\u306e\u30c7\u30b6\u30a4\u30ca\u30fc\u306e\u5b9f\u7e3e\u3092\u898b\u308b</a>
           </div>
         `;
         document.querySelector("#similarGrid").innerHTML = works

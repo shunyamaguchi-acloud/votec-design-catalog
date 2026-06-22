@@ -1754,10 +1754,10 @@
                           </div>
                         </div>
                         <div class="field full" data-design-reference hidden>
-                          <label>参考にしたい制作実績URL・画像URL</label>
-                          <textarea name="imageReferenceUrl" placeholder="例: 143667 / 143668 / https://..."></textarea>
+                          <label>参考にしたいデザイナー実績URL・制作カタログID・画像URL</label>
+                          <textarea name="imageReferenceUrl" placeholder="例: CT-0001 / https://..."></textarea>
                           <input name="imageReferenceFile" type="file" accept="image/*" multiple data-max-files="5">
-                          <p class="hint">仕上がりの雰囲気を寄せたい制作実績ページ、または参考画像URLを入力してください。制作実績のID指定はできません。添付は1回につき最大5枚までです。</p>
+                          <p class="hint">デザイナー実績は作風の参考、制作カタログIDはデザイン寄せの指定として使います。添付は1回につき最大5枚までです。</p>
                         </div>
                         <div class="field">
                           <label>ターゲット</label>
@@ -2078,7 +2078,7 @@
       catalogToggle.type = "button";
       catalogToggle.className = "catalog-toggle";
       catalogToggle.setAttribute("aria-expanded", "false");
-      catalogToggle.textContent = "カタログを見る";
+      catalogToggle.textContent = "デザイナー一覧を見る";
       if (catalogHead) catalogHead.append(catalogToggle);
 
       const designerModal = document.createElement("div");
@@ -2098,7 +2098,7 @@
           </div>
           <div class="designer-dialog-body">
             <p id="designerModalSummary"></p>
-            <p>制作実績（サンプル）</p>
+            <p>デザイナー実績（サンプル）</p>
             <div class="designer-works" id="designerModalWorks"></div>
           </div>
           <div class="designer-dialog-actions">
@@ -2171,7 +2171,7 @@
         if (!designerCatalog) return;
         designerCatalog.classList.add("is-collapsed");
         catalogToggle.setAttribute("aria-expanded", "false");
-        catalogToggle.textContent = "カタログを見る";
+        catalogToggle.textContent = "デザイナー一覧を見る";
       }
 
       renderDesignerCards();
@@ -2199,7 +2199,7 @@
 
       function setDesignerSelection(mode, name = "") {
         const isCatalog = mode === "catalog";
-        designerRequestType.value = isCatalog ? "デザイナーカタログからの指名" : "標準的な指名";
+        designerRequestType.value = isCatalog ? "デザイナー実績からの指名" : "標準的な指名";
         designerName.value = isCatalog ? name : "";
         designerEvaluation.value = isCatalog ? "指名評価＋クオリティ評価" : "指名評価";
         if (isCatalog && name) {
@@ -2213,7 +2213,7 @@
         });
         if (designerSelectedText) {
           designerSelectedText.innerHTML = isCatalog
-            ? `デザイナーカタログからの指名<br>${name || "デザイナー未選択"}<br>${designerEvaluation.value}`
+            ? `デザイナー実績からの指名<br>${name || "デザイナー未選択"}<br>${designerEvaluation.value}`
             : `標準的な指名<br>${designerEvaluation.value}`;
         }
       }
@@ -2228,7 +2228,7 @@
           if (designerCatalog) {
             designerCatalog.classList.remove("is-collapsed");
             catalogToggle.setAttribute("aria-expanded", "true");
-            catalogToggle.textContent = "カタログを閉じる";
+            catalogToggle.textContent = "デザイナー一覧を閉じる";
           }
         });
       });
@@ -2237,7 +2237,7 @@
         catalogToggle.addEventListener("click", () => {
           const isCollapsed = designerCatalog.classList.toggle("is-collapsed");
           catalogToggle.setAttribute("aria-expanded", String(!isCollapsed));
-          catalogToggle.textContent = isCollapsed ? "カタログを見る" : "カタログを閉じる";
+          catalogToggle.textContent = isCollapsed ? "デザイナー一覧を見る" : "デザイナー一覧を閉じる";
         });
       }
 
@@ -2617,10 +2617,10 @@
               </div>
             </div>
             <div class="field full" data-design-reference hidden>
-              <label>参考にしたい制作実績URL・画像URL</label>
-              <textarea name="imageReferenceUrl" placeholder="例: 143667 / 143668 / https://..."></textarea>
+              <label>参考にしたいデザイナー実績URL・制作カタログID・画像URL</label>
+              <textarea name="imageReferenceUrl" placeholder="例: CT-0001 / https://..."></textarea>
               <input name="imageReferenceFile" type="file" accept="image/*" multiple data-max-files="5">
-              <p class="hint">仕上がりの雰囲気を寄せたい制作実績ページ、または参考画像URLを入力してください。制作実績のID指定はできません。添付は1回につき最大5枚までです。</p>
+              <p class="hint">デザイナー実績は作風の参考、制作カタログIDはデザイン寄せの指定として使います。添付は1回につき最大5枚までです。</p>
             </div>
             <div class="field">
               <label>ターゲット</label>
@@ -2880,7 +2880,7 @@
         }
         if (selectedWork) {
           applyReferenceWorkToFirstImage(selectedWork);
-          reflected.push(`参考にしたい制作実績を反映しました`);
+          reflected.push(`参考にしたいデザイナー実績を反映しました`);
         }
         if (reflected.length && catalogReflectedText) {
           catalogReflectedText.innerHTML = `カタログから反映済み<br>${reflected.map(escapeHtml).join("<br>")}`;

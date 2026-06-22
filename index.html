@@ -348,6 +348,30 @@
         letter-spacing: 0;
       }
 
+      .section-title-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .section-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        border-radius: 999px;
+        padding: 0 10px;
+        background: #eaf8f4;
+        color: var(--brand-strong);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .section-badge.is-locked {
+        background: #fff2df;
+        color: #9a5a00;
+      }
+
       .section-head p {
         margin: 6px 0 0;
         color: var(--muted);
@@ -1448,8 +1472,9 @@
             <img class="brand-logo" src="assets/logo.png" alt="VOTEC">
           </div>
           <nav class="site-nav" aria-label="カタログ内メニュー">
-            <a href="#" data-nav-tab="works">制作実績</a>
+            <a href="#" data-nav-tab="works">デザイナー実績</a>
             <a href="#" data-nav-tab="designers">在籍デザイナー</a>
+            <a href="#" data-nav-tab="catalog">制作カタログ</a>
             <a href="#" data-nav-tab="templates">テンプレート</a>
             <a class="nav-cta" href="form.html">依頼フォームはこちら</a>
           </nav>
@@ -1460,10 +1485,11 @@
           <div class="hero-content">
             <p class="eyebrow">VOTEC DESIGN CATALOG</p>
             <h1>仕上がり・指名・構成を分けて選べる制作カタログ。</h1>
-            <p class="lead">制作実績は仕上がりの参考、在籍デザイナーは指名候補、テンプレートは構成の指定として使います。フォームでは依頼内容だけを迷わず入力できます。</p>
+            <p class="lead">デザイナー実績は指名判断、制作カタログはID指定、テンプレートは打ち換えのみの短納期依頼に使います。</p>
             <div class="hero-actions">
-              <a class="hero-primary" href="#" data-nav-tab="works">制作実績を見る</a>
+              <a class="hero-primary" href="#" data-nav-tab="works">デザイナー実績を見る</a>
               <a class="hero-secondary" href="#" data-nav-tab="designers">デザイナーを見る</a>
+              <a class="hero-secondary" href="#" data-nav-tab="catalog">制作カタログを見る</a>
               <a class="hero-secondary" href="#" data-nav-tab="templates">テンプレートを見る</a>
               <a class="hero-secondary" href="form.html">依頼フォームへ進む</a>
             </div>
@@ -1477,7 +1503,7 @@
           </div>
         </section>
         <div class="toolbar" aria-label="カタログ操作">
-          <input class="search" id="catalogSearch" type="search" placeholder="デザイナー名・色味・雰囲気・テンプレートIDで検索">
+          <input class="search" id="catalogSearch" type="search" placeholder="デザイナー名・色味・雰囲気・カタログID・テンプレートIDで検索">
         </div>
         <div class="quick-filters" aria-label="目的別検索">
           <span>よく探す条件</span>
@@ -1492,7 +1518,11 @@
         <section class="section active" data-section="works">
           <div class="section-head">
             <div>
-              <h2>制作実績一覧</h2>
+              <div class="section-title-row">
+                <h2>デザイナー実績</h2>
+                <span class="section-badge">指名判断用</span>
+                <span class="section-badge is-locked">ID指定不可</span>
+              </div>
             </div>
           </div>
           <div class="works-filter-status" id="worksFilterStatus">
@@ -1500,8 +1530,8 @@
             <button type="button" class="clear-filter" id="clearDesignerFilter">すべて表示</button>
           </div>
           <div class="grid works-grid" id="worksGrid"></div>
-          <nav class="pagination" id="worksPagination" aria-label="制作実績ページ送り"></nav>
-          <div class="empty" id="worksEmpty">該当する制作実績がありません。</div>
+          <nav class="pagination" id="worksPagination" aria-label="デザイナー実績ページ送り"></nav>
+          <div class="empty" id="worksEmpty">該当するデザイナー実績がありません。</div>
         </section>
 
         <section class="section" data-section="designers">
@@ -1520,10 +1550,30 @@
           <div class="empty" id="designersEmpty">該当するデザイナーがいません。</div>
         </section>
 
+        <section class="section" data-section="catalog">
+          <div class="section-head">
+            <div>
+              <div class="section-title-row">
+                <h2>制作カタログ</h2>
+                <span class="section-badge">ID指定可</span>
+                <span class="section-badge">デザイン寄せ可</span>
+              </div>
+            </div>
+          </div>
+          <div class="template-grid" id="catalogGrid"></div>
+          <nav class="pagination" id="catalogPagination" aria-label="制作カタログページ送り"></nav>
+          <div class="empty" id="catalogEmpty">該当する制作カタログがありません。</div>
+        </section>
+
         <section class="section" data-section="templates">
           <div class="section-head">
             <div>
-              <h2>テンプレート一覧</h2>
+              <div class="section-title-row">
+                <h2>テンプレート</h2>
+                <span class="section-badge">ID指定可</span>
+                <span class="section-badge is-locked">デザイン変更不可</span>
+                <span class="section-badge is-locked">打ち換えのみ</span>
+              </div>
             </div>
           </div>
           <div class="template-layout">
@@ -1648,7 +1698,7 @@
       <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="templateModalName">
         <div class="dialog-head">
           <div>
-            <h3 id="templateModalName">テンプレートID確認</h3>
+              <h3 id="templateModalName">ID確認</h3>
             <div class="template-preview-meta">
               <span class="template-id" id="templateModalId">TP-0001</span>
             </div>
@@ -2929,7 +2979,7 @@
         const preset = workPresets[index % workPresets.length];
         return {
           id: String(143667 + index),
-          title: `制作実績 ${String(index + 1).padStart(3, "0")}`,
+          title: `デザイナー実績 ${String(index + 1).padStart(3, "0")}`,
           designer: designer.name,
           tone: designer.tone || preset.tone,
           color: preset.color,
@@ -2970,6 +3020,13 @@
       templates.forEach((template, index) => {
         template.id = `TP-${String(index + 1).padStart(4, "0")}`;
       });
+      const catalogItems = works.map((work, index) => ({
+        ...work,
+        id: `CT-${String(index + 1).padStart(4, "0")}`,
+        sourceId: work.id,
+        title: `制作カタログ ${String(index + 1).padStart(3, "0")}`
+      }));
+      const shuffledCatalogItems = shuffle([...catalogItems]);
 
       const sections = [...document.querySelectorAll(".section")];
       const tabs = [...document.querySelectorAll(".tab")];
@@ -3057,8 +3114,8 @@
         designer.focus = profile.focus;
         designer.tags = [...new Set([...profile.tags, ...(designer.tags || [])])].slice(0, 5);
       });
-      const currentPages = { works: 1, designers: 1 };
-      const pageSizes = { works: 30, designers: 18 };
+      const currentPages = { works: 1, designers: 1, catalog: 1 };
+      const pageSizes = { works: 30, designers: 18, catalog: 42 };
 
       function formUrl(params = {}) {
         const url = new URL("form.html", window.location.href);
@@ -3092,6 +3149,11 @@
           const keywordMatch = !keyword || searchText(work).includes(keyword);
           return designerMatch && keywordMatch;
         });
+      }
+
+      function filteredCatalog() {
+        const keyword = search.value.trim().toLowerCase();
+        return shuffledCatalogItems.filter((item) => !keyword || searchText(item).includes(keyword));
       }
 
       function renderPagination(targetId, key, total) {
@@ -3139,11 +3201,11 @@
         if (worksFilterStatus && worksFilterText) {
           worksFilterStatus.classList.toggle("is-visible", Boolean(activeDesignerFilter));
           worksFilterText.textContent = activeDesignerFilter
-            ? `${activeDesignerFilter} の制作実績を表示しています`
+            ? `${activeDesignerFilter} のデザイナー実績を表示しています`
             : "";
         }
         grid.innerHTML = pageItems.map((work) => `
-          <a class="work-tile tone-${escapeHtml(work.tone)} shape-${escapeHtml(work.shape)}" href="work.html?id=${encodeURIComponent(work.id)}" data-search="${escapeHtml(searchText(work))}" aria-label="${escapeHtml(work.designer)}の制作実績を見る">
+          <a class="work-tile tone-${escapeHtml(work.tone)} shape-${escapeHtml(work.shape)}" href="work.html?id=${encodeURIComponent(work.id)}" data-search="${escapeHtml(searchText(work))}" aria-label="${escapeHtml(work.designer)}のデザイナー実績を見る">
             <span class="work-image-frame">${bannerImage(work)}</span>
             <span class="work-caption">
               <b>${escapeHtml(work.designer)}</b>
@@ -3179,7 +3241,7 @@
         const start = (currentPages.designers - 1) * pageSizes.designers;
         const pageItems = filtered.slice(start, start + pageSizes.designers);
         grid.innerHTML = pageItems.map((designer) => `
-          <article class="card tone-${escapeHtml(designer.tone)}" data-designer="${escapeHtml(designer.name)}" data-search="${escapeHtml(searchText(designer))}" role="button" tabindex="0" aria-label="${escapeHtml(designer.name)}の制作実績を見る">
+          <article class="card tone-${escapeHtml(designer.tone)}" data-designer="${escapeHtml(designer.name)}" data-search="${escapeHtml(searchText(designer))}" role="button" tabindex="0" aria-label="${escapeHtml(designer.name)}のデザイナー実績を見る">
             <div class="card-body">
               <div class="card-title">
                 <span class="avatar">${escapeHtml(designer.initials)}</span>
@@ -3192,6 +3254,22 @@
         `).join("");
         renderPagination("designersPagination", "designers", filtered.length);
         document.querySelector("#designersEmpty").classList.toggle("is-visible", filtered.length === 0);
+      }
+
+      function renderCatalog(resetPage = false) {
+        const grid = document.querySelector("#catalogGrid");
+        if (resetPage) currentPages.catalog = 1;
+        const filtered = filteredCatalog();
+        const start = (currentPages.catalog - 1) * pageSizes.catalog;
+        const pageItems = filtered.slice(start, start + pageSizes.catalog);
+        grid.innerHTML = pageItems.map((item) => `
+          <button type="button" class="template-tile" data-catalog-id="${escapeHtml(item.id)}" data-search="${escapeHtml(searchText(item))}" aria-label="制作カタログID ${escapeHtml(item.id)}を確認">
+            <img src="${escapeHtml(item.image || sampleImage(item.sourceId))}" alt="" loading="lazy">
+            <span class="template-id">${escapeHtml(item.id)}</span>
+          </button>
+        `).join("");
+        renderPagination("catalogPagination", "catalog", filtered.length);
+        document.querySelector("#catalogEmpty").classList.toggle("is-visible", filtered.length === 0);
       }
 
       function renderTemplates() {
@@ -3223,6 +3301,10 @@
         }
         if (activeTab === "designers") {
           renderDesigners(true);
+          return;
+        }
+        if (activeTab === "catalog") {
+          renderCatalog(true);
           return;
         }
         const keyword = search.value.trim().toLowerCase();
@@ -3267,10 +3349,22 @@
       function showTemplate(templateId) {
         const template = templates.find((item) => item.id === templateId);
         if (!template) return;
+        document.querySelector("#templateModalName").textContent = "テンプレートID確認";
         document.querySelector("#templateModalId").textContent = template.id;
         document.querySelector("#templateModalImage").src = template.image;
         document.querySelector("#templateModalSummary").textContent = `${template.title} / ${template.tags.slice(0, 3).join("・")}`;
         document.querySelector("#templateModalCopy").dataset.copy = template.id;
+        templateModal.hidden = false;
+      }
+
+      function showCatalogItem(catalogId) {
+        const item = catalogItems.find((catalog) => catalog.id === catalogId);
+        if (!item) return;
+        document.querySelector("#templateModalName").textContent = "制作カタログID確認";
+        document.querySelector("#templateModalId").textContent = item.id;
+        document.querySelector("#templateModalImage").src = item.image;
+        document.querySelector("#templateModalSummary").textContent = `${item.designer} / ${item.tags.slice(0, 3).join("・")}`;
+        document.querySelector("#templateModalCopy").dataset.copy = item.id;
         templateModal.hidden = false;
       }
 
@@ -3301,7 +3395,7 @@
         }
 
         const hashTab = window.location.hash.replace("#", "");
-        if (["works", "designers", "templates"].includes(hashTab)) {
+        if (["works", "designers", "catalog", "templates"].includes(hashTab)) {
           setActiveTab(hashTab);
           return;
         }
@@ -3331,6 +3425,7 @@
           currentPages[key] = Number(pageButton.dataset.page);
           if (key === "works") renderWorks();
           if (key === "designers") renderDesigners();
+          if (key === "catalog") renderCatalog();
           document.querySelector(`[data-section="${activeTab}"]`).scrollIntoView({ behavior: "smooth", block: "start" });
         }
         const quickSearch = event.target.closest("[data-quick-search]");
@@ -3338,6 +3433,7 @@
           search.value = quickSearch.dataset.quickSearch;
           currentPages.works = 1;
           currentPages.designers = 1;
+          currentPages.catalog = 1;
           applySearch();
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -3345,6 +3441,8 @@
         if (designerButton) showDesignerWorks(designerButton.dataset.designer);
         const templateTile = event.target.closest("[data-template-id]");
         if (templateTile) showTemplate(templateTile.dataset.templateId);
+        const catalogTile = event.target.closest("[data-catalog-id]");
+        if (catalogTile) showCatalogItem(catalogTile.dataset.catalogId);
         const copyTemplate = event.target.closest("#templateModalCopy");
         if (copyTemplate) copyText(copyTemplate.dataset.copy || "");
       });
@@ -3390,6 +3488,7 @@
 
       renderWorks();
       renderDesigners();
+      renderCatalog();
       renderTemplates();
       applyInitialState();
     </script>
