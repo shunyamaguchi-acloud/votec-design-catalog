@@ -691,6 +691,12 @@
         font-weight: 900;
       }
 
+      .filter-body {
+        max-height: min(720px, calc(100vh - 168px));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
       .filter-block {
         padding: 16px 18px;
         border-bottom: 1px solid #edf0f3;
@@ -713,6 +719,23 @@
         border-radius: 8px;
         padding: 0 12px;
         background: #fff;
+      }
+
+      .filter-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .filter-reset {
+        min-height: 40px;
+        border-radius: 999px;
+        border: 1px solid #d5dde5;
+        background: #fff;
+        padding: 0 14px;
+        font-weight: 900;
+        color: #44505e;
+        cursor: pointer;
       }
 
       .filter-checks {
@@ -1349,6 +1372,7 @@
         border: 1px solid rgba(213, 221, 229, 0.9);
         border-radius: 18px;
         box-shadow: 0 16px 40px rgba(24, 33, 43, 0.07);
+        overflow: hidden;
       }
 
       .filter-title {
@@ -1560,8 +1584,48 @@
               </div>
             </div>
           </div>
-          <div class="template-grid" id="catalogGrid"></div>
-          <nav class="pagination" id="catalogPagination" aria-label="制作カタログページ送り"></nav>
+          <div class="template-layout">
+            <aside class="filter-panel" aria-label="制作カタログ絞り込み">
+              <div class="filter-title">絞り込み検索</div>
+              <div class="filter-body" data-shared-filter="catalog">
+                <div class="filter-block">
+                  <b>ID検索</b>
+                  <input type="search" data-filter-id placeholder="例: CT-0001">
+                </div>
+                <div class="filter-block">
+                  <b>カテゴリー</b>
+                  <select data-filter-category>
+                    <option value="">すべて</option>
+                    <option>営業バナー</option>
+                    <option>求人バナー</option>
+                    <option>ナイトワーク</option>
+                    <option>男性求人</option>
+                    <option>ホスト</option>
+                    <option>GIF</option>
+                    <option>縦制限無し</option>
+                  </select>
+                </div>
+                <div class="filter-block">
+                  <b>色</b>
+                  <div class="filter-checks" data-filter-colors></div>
+                </div>
+                <div class="filter-block">
+                  <b>雰囲気</b>
+                  <div class="filter-checks" data-filter-tones></div>
+                </div>
+                <div class="filter-block">
+                  <div class="filter-actions">
+                    <button type="button" class="primary-link" data-apply-filter>絞り込む</button>
+                    <button type="button" class="filter-reset" data-reset-filter>リセット</button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+            <div>
+              <div class="template-grid" id="catalogGrid"></div>
+              <nav class="pagination" id="catalogPagination" aria-label="制作カタログページ送り"></nav>
+            </div>
+          </div>
           <div class="empty" id="catalogEmpty">該当する制作カタログがありません。</div>
         </section>
 
@@ -1579,14 +1643,15 @@
           <div class="template-layout">
             <aside class="filter-panel" aria-label="テンプレート絞り込み">
               <div class="filter-title">絞り込み検索</div>
+              <div class="filter-body" data-shared-filter="templates">
               <div class="filter-block">
                 <b>ID検索</b>
-                <input type="search" placeholder="例: FR-00293">
+                <input type="search" data-filter-id placeholder="例: TP-0001">
               </div>
               <div class="filter-block">
                 <b>カテゴリー</b>
-                <select>
-                  <option>すべて</option>
+                <select data-filter-category>
+                  <option value="">すべて</option>
                   <option>営業バナー</option>
                   <option>求人バナー</option>
                   <option>ナイトワーク</option>
@@ -1598,74 +1663,22 @@
               </div>
               <div class="filter-block">
                 <b>色</b>
-                <div class="filter-checks">
-                  <label><input type="checkbox" checked> すべて</label>
-                  <label><input type="checkbox"> ゴールド</label>
-                  <label><input type="checkbox"> シルバー</label>
-                  <label><input type="checkbox"> ホワイト</label>
-                  <label><input type="checkbox"> グレー</label>
-                  <label><input type="checkbox"> ブラック</label>
-                  <label><input type="checkbox"> レッド</label>
-                  <label><input type="checkbox"> ブラウン</label>
-                  <label><input type="checkbox"> オレンジ</label>
-                  <label><input type="checkbox"> ベージュ</label>
-                  <label><input type="checkbox"> イエロー</label>
-                  <label><input type="checkbox"> 黄緑</label>
-                  <label><input type="checkbox"> グリーン</label>
-                  <label><input type="checkbox"> エメラルドグリーン</label>
-                  <label><input type="checkbox"> 水色</label>
-                  <label><input type="checkbox"> ブルー</label>
-                  <label><input type="checkbox"> ネイビー</label>
-                  <label><input type="checkbox"> パープル</label>
-                  <label><input type="checkbox"> ピンク</label>
-                  <label><input type="checkbox"> 赤紫</label>
-                  <label><input type="checkbox"> マルチカラー</label>
-                </div>
+                <div class="filter-checks" data-filter-colors></div>
               </div>
               <div class="filter-block">
                 <b>雰囲気</b>
-                <div class="filter-checks">
-                  <label><input type="checkbox" checked> すべて</label>
-                  <label><input type="checkbox"> かわいい</label>
-                  <label><input type="checkbox"> きれい</label>
-                  <label><input type="checkbox"> 清楚</label>
-                  <label><input type="checkbox"> 高級</label>
-                  <label><input type="checkbox"> ナチュラル</label>
-                  <label><input type="checkbox"> 雑誌風</label>
-                  <label><input type="checkbox"> 手書き風</label>
-                  <label><input type="checkbox"> 和風</label>
-                  <label><input type="checkbox"> 派手</label>
-                  <label><input type="checkbox"> ネオン</label>
-                  <label><input type="checkbox"> ポップ</label>
-                  <label><input type="checkbox"> シンプル</label>
-                  <label><input type="checkbox"> スタイリッシュ</label>
-                  <label><input type="checkbox"> クール</label>
-                  <label><input type="checkbox"> エロい</label>
-                  <label><input type="checkbox"> SM系</label>
-                  <label><input type="checkbox"> 学園系</label>
-                  <label><input type="checkbox"> コスプレ</label>
-                  <label><input type="checkbox"> ぽっちゃり</label>
-                  <label><input type="checkbox"> エステ</label>
-                  <label><input type="checkbox"> 文字だけ</label>
-                  <label><input type="checkbox"> イラスト</label>
-                  <label><input type="checkbox"> 春</label>
-                  <label><input type="checkbox"> 夏</label>
-                  <label><input type="checkbox"> 秋</label>
-                  <label><input type="checkbox"> 冬</label>
-                  <label><input type="checkbox"> イベント</label>
-                  <label><input type="checkbox"> お正月</label>
-                  <label><input type="checkbox"> バレンタイン</label>
-                  <label><input type="checkbox"> ホワイトデー</label>
-                  <label><input type="checkbox"> 梅雨</label>
-                  <label><input type="checkbox"> ゴールデンウィーク</label>
-                  <label><input type="checkbox"> ハロウィン</label>
-                  <label><input type="checkbox"> クリスマス</label>
-                  <label><input type="checkbox"> 男性</label>
+                <div class="filter-checks" data-filter-tones></div>
+                <div class="filter-actions">
+                  <button type="button" class="primary-link" data-apply-filter>絞り込む</button>
+                  <button type="button" class="filter-reset" data-reset-filter>リセット</button>
                 </div>
-                <button type="button" class="primary-link">絞り込む</button>
+              </div>
               </div>
             </aside>
-            <div class="template-grid" id="templatesGrid"></div>
+            <div>
+              <div class="template-grid" id="templatesGrid"></div>
+              <nav class="pagination" id="templatesPagination" aria-label="テンプレートページ送り"></nav>
+            </div>
           </div>
           <div class="empty" id="templatesEmpty">該当するテンプレートがありません。</div>
         </section>
@@ -3114,8 +3127,22 @@
         designer.focus = profile.focus;
         designer.tags = [...new Set([...profile.tags, ...(designer.tags || [])])].slice(0, 5);
       });
-      const currentPages = { works: 1, designers: 1, catalog: 1 };
-      const pageSizes = { works: 30, designers: 18, catalog: 42 };
+      const currentPages = { works: 1, designers: 1, catalog: 1, templates: 1 };
+      const pageSizes = { works: 30, designers: 18, catalog: 42, templates: 42 };
+      const sharedFilterValues = {
+        colors: [
+          "すべて", "ゴールド", "シルバー", "ホワイト", "グレー", "ブラック", "レッド", "ブラウン",
+          "オレンジ", "ベージュ", "イエロー", "黄緑", "グリーン", "エメラルドグリーン", "水色",
+          "ブルー", "ネイビー", "パープル", "ピンク", "赤紫", "マルチカラー"
+        ],
+        tones: [
+          "すべて", "かわいい", "きれい", "清楚", "高級", "ナチュラル", "雑誌風", "手書き風", "和風",
+          "派手", "ネオン", "ポップ", "シンプル", "スタイリッシュ", "クール", "エロい", "SM系",
+          "学園系", "コスプレ", "ぽっちゃり", "エステ", "文字だけ", "イラスト", "春", "夏", "秋", "冬",
+          "イベント", "お正月", "バレンタイン", "ホワイトデー", "梅雨", "ゴールデンウィーク",
+          "ハロウィン", "クリスマス", "男性"
+        ]
+      };
 
       function formUrl(params = {}) {
         const url = new URL("form.html", window.location.href);
@@ -3153,7 +3180,18 @@
 
       function filteredCatalog() {
         const keyword = search.value.trim().toLowerCase();
-        return shuffledCatalogItems.filter((item) => !keyword || searchText(item).includes(keyword));
+        return shuffledCatalogItems.filter((item) => {
+          const filters = getSharedFilters("catalog");
+          return filterSharedItem(item, filters, keyword);
+        });
+      }
+
+      function filteredTemplates() {
+        const keyword = search.value.trim().toLowerCase();
+        return templates.filter((item) => {
+          const filters = getSharedFilters("templates");
+          return filterSharedItem(item, filters, keyword);
+        });
       }
 
       function renderPagination(targetId, key, total) {
@@ -3272,18 +3310,80 @@
         document.querySelector("#catalogEmpty").classList.toggle("is-visible", filtered.length === 0);
       }
 
-      function renderTemplates() {
+      function renderTemplates(resetPage = false) {
         const grid = document.querySelector("#templatesGrid");
-        grid.innerHTML = shuffle([...templates]).map((template, index) => `
+        if (resetPage) currentPages.templates = 1;
+        const filtered = filteredTemplates();
+        const start = (currentPages.templates - 1) * pageSizes.templates;
+        const pageItems = filtered.slice(start, start + pageSizes.templates);
+        grid.innerHTML = pageItems.map((template, index) => `
           <button type="button" class="template-tile" data-template-id="${escapeHtml(template.id)}" data-search="${escapeHtml(searchText(template))}" aria-label="テンプレートID ${escapeHtml(template.id)}を確認">
             <img src="${escapeHtml(template.image || sampleImage(String(143667 + index)))}" alt="" loading="lazy">
             <span class="template-id">${escapeHtml(template.id)}</span>
           </button>
         `).join("");
+        renderPagination("templatesPagination", "templates", filtered.length);
+        document.querySelector("#templatesEmpty").classList.toggle("is-visible", filtered.length === 0);
       }
 
       function searchText(item) {
         return Object.values(item).flat().join(" ").toLowerCase();
+      }
+
+      function renderSharedFilters() {
+        document.querySelectorAll("[data-shared-filter]").forEach((panel) => {
+          const colorTarget = panel.querySelector("[data-filter-colors]");
+          const toneTarget = panel.querySelector("[data-filter-tones]");
+          if (colorTarget) colorTarget.innerHTML = checkboxList("color", sharedFilterValues.colors);
+          if (toneTarget) toneTarget.innerHTML = checkboxList("tone", sharedFilterValues.tones);
+        });
+      }
+
+      function checkboxList(name, values) {
+        return values.map((value, index) => `
+          <label>
+            <input type="checkbox" name="${name}" value="${escapeHtml(value)}" ${index === 0 ? "checked" : ""}>
+            ${escapeHtml(value)}
+          </label>
+        `).join("");
+      }
+
+      function getSharedFilters(key) {
+        const panel = document.querySelector(`[data-shared-filter="${key}"]`);
+        if (!panel) return { id: "", category: "", colors: [], tones: [] };
+        return {
+          id: (panel.querySelector("[data-filter-id]")?.value || "").trim().toLowerCase(),
+          category: panel.querySelector("[data-filter-category]")?.value || "",
+          colors: checkedFilterValues(panel, "color"),
+          tones: checkedFilterValues(panel, "tone")
+        };
+      }
+
+      function checkedFilterValues(panel, name) {
+        const values = [...panel.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => input.value);
+        return values.includes("すべて") ? [] : values;
+      }
+
+      function filterSharedItem(item, filters, keyword) {
+        const text = searchText(item);
+        const idMatch = !filters.id || String(item.id).toLowerCase().includes(filters.id);
+        const keywordMatch = !keyword || text.includes(keyword);
+        const categoryMatch = !filters.category || text.includes(filters.category.toLowerCase());
+        const colorMatch = !filters.colors.length || filters.colors.some((value) => text.includes(value.toLowerCase()));
+        const toneMatch = !filters.tones.length || filters.tones.some((value) => text.includes(value.toLowerCase()));
+        return idMatch && keywordMatch && categoryMatch && colorMatch && toneMatch;
+      }
+
+      function resetSharedFilter(key) {
+        const panel = document.querySelector(`[data-shared-filter="${key}"]`);
+        if (!panel) return;
+        const idInput = panel.querySelector("[data-filter-id]");
+        const categorySelect = panel.querySelector("[data-filter-category]");
+        if (idInput) idInput.value = "";
+        if (categorySelect) categorySelect.value = "";
+        panel.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+          input.checked = input.value === "すべて";
+        });
       }
 
       function setActiveTab(tabName) {
@@ -3307,16 +3407,9 @@
           renderCatalog(true);
           return;
         }
-        const keyword = search.value.trim().toLowerCase();
-        const section = document.querySelector(`[data-section="${activeTab}"]`);
-        const cards = [...section.querySelectorAll(".card, .work-tile, .template-tile")];
-        let visible = 0;
-        cards.forEach((card) => {
-          const match = !keyword || card.dataset.search.includes(keyword);
-          card.hidden = !match;
-          if (match) visible += 1;
-        });
-        document.querySelector(`#${activeTab}Empty`).classList.toggle("is-visible", visible === 0);
+        if (activeTab === "templates") {
+          renderTemplates(true);
+        }
       }
 
       function openDesigner(name) {
@@ -3426,7 +3519,20 @@
           if (key === "works") renderWorks();
           if (key === "designers") renderDesigners();
           if (key === "catalog") renderCatalog();
+          if (key === "templates") renderTemplates();
           document.querySelector(`[data-section="${activeTab}"]`).scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        const filterButton = event.target.closest("[data-apply-filter]");
+        if (filterButton) {
+          if (activeTab === "catalog") renderCatalog(true);
+          if (activeTab === "templates") renderTemplates(true);
+        }
+        const resetButton = event.target.closest("[data-reset-filter]");
+        if (resetButton) {
+          const panel = resetButton.closest("[data-shared-filter]");
+          resetSharedFilter(panel?.dataset.sharedFilter);
+          if (activeTab === "catalog") renderCatalog(true);
+          if (activeTab === "templates") renderTemplates(true);
         }
         const quickSearch = event.target.closest("[data-quick-search]");
         if (quickSearch) {
@@ -3434,6 +3540,7 @@
           currentPages.works = 1;
           currentPages.designers = 1;
           currentPages.catalog = 1;
+          currentPages.templates = 1;
           applySearch();
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -3471,6 +3578,33 @@
       });
 
       search.addEventListener("input", applySearch);
+      document.querySelectorAll("[data-shared-filter]").forEach((panel) => {
+        panel.addEventListener("change", (event) => {
+          const checkbox = event.target.closest('input[type="checkbox"]');
+          if (checkbox) {
+            const groupInputs = [...panel.querySelectorAll(`input[name="${checkbox.name}"]`)];
+            if (checkbox.value === "すべて" && checkbox.checked) {
+              groupInputs.forEach((input) => {
+                if (input !== checkbox) input.checked = false;
+              });
+            } else if (checkbox.checked) {
+              const all = groupInputs.find((input) => input.value === "すべて");
+              if (all) all.checked = false;
+            }
+            if (!groupInputs.some((input) => input.checked)) {
+              const all = groupInputs.find((input) => input.value === "すべて");
+              if (all) all.checked = true;
+            }
+          }
+          if (activeTab === "catalog") renderCatalog(true);
+          if (activeTab === "templates") renderTemplates(true);
+        });
+        panel.addEventListener("input", (event) => {
+          if (!event.target.matches("[data-filter-id]")) return;
+          if (activeTab === "catalog") renderCatalog(true);
+          if (activeTab === "templates") renderTemplates(true);
+        });
+      });
       clearDesignerFilter.addEventListener("click", () => {
         activeDesignerFilter = "";
         currentPages.works = 1;
@@ -3486,6 +3620,7 @@
           .replaceAll("'", "&#039;");
       }
 
+      renderSharedFilters();
       renderWorks();
       renderDesigners();
       renderCatalog();
