@@ -324,7 +324,7 @@
 
       .detail-nav-arrow {
         position: absolute;
-        top: 50%;
+        top: var(--detail-nav-top, 50%);
         z-index: 3;
         width: 56px;
         height: 56px;
@@ -744,12 +744,12 @@
 
       <div class="work-detail-layout">
         <section class="work-stage" id="workStage">
+          <a class="detail-nav-arrow detail-nav-prev" id="prevWorkLink" href="#" aria-label="前の画像へ">←</a>
           <div class="banner-preview" id="bannerPreview">
-            <a class="detail-nav-arrow detail-nav-prev" id="prevWorkLink" href="#" aria-label="前の画像へ">←</a>
             <img class="main-banner" id="mainBanner" src="" alt="" tabindex="0" role="button" aria-label="画像を拡大">
             <span class="banner-expand-hint" id="bannerExpandHint" hidden>クリックで全体表示</span>
-            <a class="detail-nav-arrow detail-nav-next" id="nextWorkLink" href="#" aria-label="次の画像へ">→</a>
           </div>
+          <a class="detail-nav-arrow detail-nav-next" id="nextWorkLink" href="#" aria-label="次の画像へ">→</a>
           <div class="detail-nav-mobile">
             <a id="prevWorkMobileLink" href="#">前へ</a>
             <a id="nextWorkMobileLink" href="#">次へ</a>
@@ -1324,8 +1324,16 @@
         bannerExpandHint.hidden = !shouldCollapse;
       }
 
+      function updateDetailNavPosition() {
+        const stageRect = workStage.getBoundingClientRect();
+        const previewRect = bannerPreview.getBoundingClientRect();
+        const previewCenter = previewRect.top - stageRect.top + previewRect.height / 2;
+        workStage.style.setProperty("--detail-nav-top", `${previewCenter}px`);
+      }
+
       function handleBannerLoad() {
         updateBannerCollapse();
+        updateDetailNavPosition();
         alignBannerTopFromHash();
       }
 
@@ -1334,6 +1342,10 @@
       } else {
         mainBanner.addEventListener("load", handleBannerLoad, { once: true });
       }
+
+      window.addEventListener("resize", () => {
+        requestAnimationFrame(updateDetailNavPosition);
+      });
 
       function openLightbox() {
         lightboxImage.src = mainBanner.src;
