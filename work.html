@@ -246,6 +246,7 @@
         align-items: center;
         justify-items: center;
         padding: 26px;
+        scroll-margin-top: 92px;
         border: 1px solid rgba(213, 221, 229, 0.9);
         border-radius: 28px;
         background: #fff;
@@ -1163,7 +1164,7 @@
       const nextItem = currentIndex >= 0 && currentIndex < currentCollection.length - 1 ? currentCollection[currentIndex + 1] : null;
 
       function detailUrl(item, alignToBanner = false) {
-        const hash = alignToBanner ? "#mainBanner" : "";
+        const hash = alignToBanner ? "#workStage" : "";
         const designerScope = item.type === "work" && requestedDesigner ? `&designer=${encodeURIComponent(requestedDesigner)}` : "";
         return `work.html?type=${encodeURIComponent(item.type)}&id=${encodeURIComponent(item.id)}${designerScope}${hash}`;
       }
@@ -1317,10 +1318,10 @@
       const lightboxImage = document.querySelector("#lightboxImage");
       const lightboxClose = document.querySelector("#lightboxClose");
 
-      function alignBannerTopFromHash() {
-        if (window.location.hash !== "#mainBanner") return;
+      function alignStageTopFromHash() {
+        if (!["#mainBanner", "#workStage"].includes(window.location.hash)) return;
         requestAnimationFrame(() => {
-          mainBanner.scrollIntoView({ block: "start", inline: "nearest" });
+          workStage.scrollIntoView({ block: "start", inline: "nearest" });
         });
       }
 
@@ -1333,7 +1334,7 @@
 
       function handleBannerLoad() {
         updateBannerCollapse();
-        alignBannerTopFromHash();
+        alignStageTopFromHash();
       }
 
       if (mainBanner.complete) {
