@@ -31,6 +31,7 @@
         color: var(--ink);
         background: #f3f6f8;
         letter-spacing: 0;
+        overflow-x: hidden;
       }
 
       button,
@@ -2036,7 +2037,7 @@
         "その他": sharedMediaOptions
       };
 
-      const designerCatalogItems = [
+      let designerCatalogItems = [
         { name: "堂角 翼", initials: "DT", tone: "lp", summary: "案件理解が早く修正が少ない。業種を問わず幅広く対応。", tags: ["LP", "高単価", "女性向け"] },
         { name: "山口 あい", initials: "YA", tone: "sns", summary: "SNS・バナー専門。読みやすい文字組みとテンポのよいレイアウトが得意。", tags: ["バナー", "SNS", "女性向け"] },
         { name: "佐藤 健", initials: "SK", tone: "video", summary: "LP専門。高単価店の実績多数。訴求力の高いファーストビュー構成が得意。", tags: ["LP", "高単価", "動画"] },
@@ -2072,6 +2073,44 @@
         { name: "西村 圭", initials: "NK", tone: "hp", summary: "ブランド感のあるHP画像。暗め・高級感のある表現が得意。", tags: ["HP", "高級感", "ブランド"] },
         { name: "福田 真央", initials: "FM", tone: "banner", summary: "かわいい系とポップ系に強い。イベント訴求の見せ方が得意。", tags: ["ポップ", "イベント", "バナー"] },
         { name: "三浦 仁", initials: "MJ", tone: "video", summary: "訴求の優先順位整理が得意。複数サイズでも見え方が安定する。", tags: ["動画", "展開", "構成"] }
+      ];
+
+      designerCatalogItems = [
+        { name: "堂角美樹", initials: "DK", tone: "lp", summary: "依頼内容の整理と幅広い案件対応が得意。", tags: ["構成", "高単価", "LP"] },
+        { name: "村松純汰", initials: "MJ", tone: "sns", summary: "読みやすい文字組みとスピード感のある展開が得意。", tags: ["バナー", "SNS", "量産"] },
+        { name: "浅利あつ美", initials: "AA", tone: "video", summary: "訴求力のある見せ方と華やかなデザインが得意。", tags: ["訴求強め", "動画", "イベント"] },
+        { name: "笹沼萌", initials: "SM", tone: "banner", summary: "柔らかい女性向けデザインと清潔感のある表現が得意。", tags: ["女性向け", "清潔感", "バナー"] },
+        { name: "桑原智美", initials: "KT", tone: "hp", summary: "落ち着いた配色と店舗の世界観づくりが得意。", tags: ["HP", "高級感", "ブランド"] },
+        { name: "川浦有稀", initials: "KY", tone: "sns", summary: "求人・イベント系の見やすいデザインが得意。", tags: ["求人", "イベント", "SNS"] },
+        { name: "加賀千安紀", initials: "KC", tone: "video", summary: "インパクト重視のキャンペーン表現が得意。", tags: ["キャンペーン", "訴求強め", "動画"] },
+        { name: "寺嶋茉奈", initials: "TM", tone: "banner", summary: "写真を活かした女性向けバナーが得意。", tags: ["写真", "女性向け", "バナー"] },
+        { name: "小野口和暉", initials: "OK", tone: "lp", summary: "情報量の多い案件を整理して見せる構成が得意。", tags: ["LP", "情報整理", "構成"] },
+        { name: "森永大介", initials: "MD", tone: "sns", summary: "スマホで見やすいレイアウトと可読性が得意。", tags: ["スマホ", "読みやすい", "バナー"] },
+        { name: "佐藤麻衣", initials: "MI", tone: "video", summary: "目立つ文言を整理したキャンペーン画像が得意。", tags: ["キャンペーン", "文字組み", "動画"] },
+        { name: "佐藤彩夏", initials: "SA", tone: "banner", summary: "かわいい系・ポップ系の見せ方が得意。", tags: ["かわいい", "ポップ", "バナー"] },
+        { name: "齋藤亜琉", initials: "AR", tone: "hp", summary: "店舗紹介や料金まわりの整理が得意。", tags: ["HP", "料金", "情報整理"] },
+        { name: "田仲邑莉野", initials: "TR", tone: "sns", summary: "柔らかい色味と親しみやすいトーンが得意。", tags: ["女性向け", "SNS", "清潔感"] },
+        { name: "松本考史", initials: "MT", tone: "video", summary: "派手めの訴求とキャンペーン展開が得意。", tags: ["派手", "動画", "イベント"] },
+        { name: "原勇貴", initials: "HY", tone: "banner", summary: "媒体ごとのサイズ展開と量産対応が得意。", tags: ["展開", "量産", "バナー"] },
+        { name: "仙谷優依", initials: "SY", tone: "lp", summary: "高単価系の落ち着いた構成が得意。", tags: ["高単価", "LP", "構成"] },
+        { name: "高木弓", initials: "TY", tone: "hp", summary: "上品で余白のあるデザインが得意。", tags: ["上品", "余白", "HP"] },
+        { name: "田中ひかる", initials: "TH", tone: "sns", summary: "求人・日次投稿向けの明るい表現が得意。", tags: ["求人", "SNS", "明るい"] },
+        { name: "板坂莉琴", initials: "IR", tone: "banner", summary: "人物素材を大きく見せるデザインが得意。", tags: ["人物", "写真", "バナー"] },
+        { name: "山本瑞樹", initials: "YM", tone: "lp", summary: "比較情報や料金訴求を整理するのが得意。", tags: ["比較", "料金", "LP"] },
+        { name: "大和谷知沙", initials: "YC", tone: "sns", summary: "やさしい色味と安心感のあるデザインが得意。", tags: ["安心感", "女性向け", "SNS"] },
+        { name: "中野亜海", initials: "NA", tone: "banner", summary: "イベント感のあるポップなバナーが得意。", tags: ["イベント", "ポップ", "バナー"] },
+        { name: "金行凜空", initials: "KR", tone: "hp", summary: "暗め・高級感のあるビジュアル表現が得意。", tags: ["高級感", "クール", "HP"] },
+        { name: "小野寺亮周", initials: "OR", tone: "lp", summary: "訴求の優先順位を整理したLP構成が得意。", tags: ["LP", "導線", "構成"] },
+        { name: "白谷祐人", initials: "SY2", tone: "video", summary: "強いインパクトと派手なキャンペーン表現が得意。", tags: ["派手", "インパクト", "動画"] },
+        { name: "大家美咲", initials: "OM", tone: "sns", summary: "清潔感のある求人・女性向けデザインが得意。", tags: ["求人", "女性向け", "清潔感"] },
+        { name: "佐藤瑞歩", initials: "SM2", tone: "banner", summary: "読みやすさを重視した安定感のあるバナーが得意。", tags: ["読みやすい", "安定感", "バナー"] },
+        { name: "平野亜利沙", initials: "HA", tone: "lp", summary: "高単価・落ち着いた訴求の整理が得意。", tags: ["高単価", "LP", "上品"] },
+        { name: "小桝由聖", initials: "KY2", tone: "sns", summary: "かわいい系と若年層向けの明るい表現が得意。", tags: ["かわいい", "若年層", "SNS"] },
+        { name: "峯田ひより", initials: "MH", tone: "banner", summary: "色味のバランスと人物写真の見せ方が得意。", tags: ["色味", "人物", "バナー"] },
+        { name: "溝上洋子", initials: "MY", tone: "hp", summary: "店舗の世界観を整えるデザインが得意。", tags: ["HP", "世界観", "ブランド"] },
+        { name: "松山桃花", initials: "MM", tone: "video", summary: "目立つ文言の整理とイベント訴求が得意。", tags: ["イベント", "訴求強め", "動画"] },
+        { name: "山口瞬", initials: "YS", tone: "sns", summary: "SNS向けのテンポのよい見せ方が得意。", tags: ["SNS", "テンポ", "バナー"] },
+        { name: "石橋美佳", initials: "IM", tone: "banner", summary: "女性向けの柔らかいデザインと写真整理が得意。", tags: ["女性向け", "写真", "バナー"] }
       ];
 
       const catalogToggle = document.createElement("button");

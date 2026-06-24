@@ -28,6 +28,7 @@
         color: var(--ink);
         background: var(--soft);
         letter-spacing: 0;
+        overflow-x: hidden;
       }
 
       a,
@@ -323,8 +324,8 @@
       }
 
       .detail-nav-arrow {
-        position: fixed;
-        top: 50vh;
+        position: absolute;
+        top: 50%;
         z-index: 40;
         width: 56px;
         height: 56px;
@@ -349,11 +350,11 @@
       }
 
       .detail-nav-prev {
-        left: max(18px, calc((100vw - 1440px) / 2 + 22px));
+        left: 18px;
       }
 
       .detail-nav-next {
-        right: max(18px, calc((100vw - 1440px) / 2 + 22px));
+        right: 18px;
       }
 
       .detail-nav-mobile {
@@ -585,7 +586,7 @@
         .detail-main {
           width: min(100% - 20px, 1180px);
           padding-top: 20px;
-          padding-bottom: 96px;
+          padding-bottom: calc(112px + env(safe-area-inset-bottom));
         }
 
         .detail-hero {
@@ -646,7 +647,7 @@
           position: fixed;
           left: 12px;
           right: 12px;
-          bottom: 12px;
+          bottom: calc(12px + env(safe-area-inset-bottom));
           z-index: 40;
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1238,7 +1239,7 @@
             <p class="meta-block-title">デザイナー情報</p>
             <div class="designer">
               <p class="designer-name">${escapeHtml(current.designer)}</p>
-              <p class="designer-sub">${escapeHtml([current.region, current.role].filter(Boolean).join(" / "))}</p>
+              <p class="designer-sub">${escapeHtml(current.region || "在籍デザイナー")}</p>
             </div>
           </div>
         ` : "";

@@ -33,6 +33,7 @@
         color: var(--ink);
         background: #f7f7f7;
         letter-spacing: 0;
+        overflow-x: hidden;
       }
 
       button,
@@ -1422,6 +1423,31 @@
       @media (max-width: 760px) {
         .header-inner {
           width: min(100% - 22px, 1360px);
+          gap: 10px;
+        }
+
+        .brand {
+          flex: 0 0 auto;
+        }
+
+        .site-nav {
+          min-width: 0;
+          flex: 1 1 auto;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          overflow-x: auto;
+          overscroll-behavior-inline: contain;
+          scrollbar-width: none;
+        }
+
+        .site-nav::-webkit-scrollbar {
+          display: none;
+        }
+
+        .site-nav a {
+          flex: 0 0 auto;
+          min-height: 44px;
+          white-space: nowrap;
         }
 
         .catalog-main {
@@ -1569,6 +1595,11 @@
 
         .filter-body {
           max-height: 360px;
+        }
+
+        .pagination a,
+        .pagination button {
+          min-height: 44px;
         }
       }
 
