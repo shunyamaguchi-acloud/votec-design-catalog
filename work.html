@@ -548,13 +548,21 @@
         gap: 8px;
       }
 
-      .tags span {
+      .tags span,
+      .tags a {
         border-radius: 999px;
         padding: 6px 10px;
         background: #eaeeee;
         color: #41505e;
         font-size: 12px;
         font-weight: 900;
+        text-decoration: none;
+        transition: background 0.18s ease, color 0.18s ease;
+      }
+
+      .tags a:hover {
+        background: var(--green);
+        color: #fff;
       }
 
       input:focus,
@@ -1249,6 +1257,15 @@
         link.setAttribute("aria-label", `${fallbackLabel}: ${item.id}`);
       }
 
+      function tagSearchUrl(tag) {
+        const targetTab = current.type === "template" ? "templates" : current.type === "catalog" ? "catalog" : "works";
+        return `index.html?tab=${encodeURIComponent(targetTab)}&q=${encodeURIComponent(tag)}#${targetTab}`;
+      }
+
+      function tagLinksHtml(tags) {
+        return tags.map((tag) => `<a href="${tagSearchUrl(tag)}">${escapeHtml(tag)}</a>`).join("");
+      }
+
       function render() {
         const labels = {
           work: {
@@ -1334,7 +1351,7 @@
           ${designerBlock}
           <div class="meta-block">
             <p class="meta-block-title">${escapeHtml(label.tagTitle)}</p>
-            <div class="tags">${current.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+            <div class="tags">${tagLinksHtml(current.tags)}</div>
           </div>
           ${actionBlock}
         `;

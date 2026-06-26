@@ -3980,11 +3980,19 @@
       function applyInitialState() {
         const params = new URLSearchParams(window.location.search);
         const designerName = params.get("designer");
+        const tabName = params.get("tab");
+        const query = params.get("q");
         if (designerName && designers.some((designer) => designer.name === designerName)) {
           activeDesignerFilter = designerName;
           search.value = "";
           currentPages.works = 1;
           setActiveTab("works");
+          return;
+        }
+
+        if (query && ["works", "designers", "catalog", "templates"].includes(tabName)) {
+          search.value = query;
+          setActiveTab(tabName);
           return;
         }
 
